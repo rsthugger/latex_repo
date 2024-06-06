@@ -26,7 +26,7 @@ jobs:
       id: latex-file
       run: |
         # Get the list of changed .tex files in the texFiles directory
-        FILES=$(git diff --name-only -- texFiles/**/*.tex)
+        FILES=$(git diff --name-only HEAD^ -- texFiles/*.tex)
         echo "Changed LaTeX file(s): $FILES"
         
         # Check if there's exactly one LaTeX file changed
