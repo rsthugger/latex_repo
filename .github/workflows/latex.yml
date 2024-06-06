@@ -54,8 +54,9 @@ jobs:
         mkdir -p pdfFiles
         mv ${{ steps.latex-file.outputs.dirname }}/${{ steps.latex-file.outputs.filename }}.pdf pdfFiles/
 
-    - name: Upload PDF artifact
-      uses: actions/upload-artifact@v3
+    - name: Push changes
+      uses: ad-m/github-push-action@v0.6.0
       with:
-        name: document
-        path: pdfFiles/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true  # Optional: use force if necessary
