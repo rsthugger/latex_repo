@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Fetch all history for all branches and tags
 
     - name: Install TeX Live
       run: |
@@ -24,7 +26,7 @@ jobs:
       id: latex-file
       run: |
         # Get the list of changed .tex files in the texFiles directory
-        FILES=$(git diff --name-only HEAD^ HEAD | grep '^texFiles/.*\.tex$')
+        FILES=$(git diff --name-only HEAD^ HEAD -- texFiles/**/*.tex)
         echo "Changed LaTeX file(s): $FILES"
         
         # Check if there's exactly one LaTeX file changed
