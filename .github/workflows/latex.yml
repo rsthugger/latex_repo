@@ -1,0 +1,59 @@
+name: Build LaTeX document
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'texFiles/**/*.tex'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install TeX Live
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic
+
+    - name: Get changed LaTeX file
+      id: latex-file
+      run: |
+        # Get the list of changed .tex files in the texFiles directory
+        FILES=$(git diff --name-only HEAD^ HEAD | grep '^texFiles/.*\.tex$')
+        echo "Changed LaTeX file(s): $FILES"
+        
+        # Check if there's exactly one LaTeX file changed
+        if [ $(echo "$FILES" | wc -l) -ne 1 ]; then
+          echo "Error: There should be exactly one LaTeX file changed."
+          exit 1
+        fi
+
+        # Get the filename without extension and the directory
+        FILENAME=$(basename $FILES .tex)
+        DIRNAME=$(dirname $FILES)
+        
+        # Set the file name and directory as output variables
+        echo "::set-output name=filename::$FILENAME"
+        echo "::set-output name=dirname::$DIRNAME"
+
+    - name: Build LaTeX document with xelatex
+      run: |
+        # Use the filename and directory from the previous step
+        cd ${{ steps.latex-file.outputs.dirname }}
+        xelatex ${{ steps.latex-file.outputs.filename }}.tex
+
+    - name: Move PDF to output directory
+      run: |
+        mkdir -p pdfFiles
+        mv ${{ steps.latex-file.outputs.dirname }}/${{ steps.latex-file.outputs.filename }}.pdf pdfFiles/
+
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: document
+        path: pdfFiles/
