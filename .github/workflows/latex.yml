@@ -17,49 +17,22 @@ jobs:
       with:
         fetch-depth: 0  # Fetch all history for all branches and tags
 
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
     - name: Install TeX Live
       run: |
         sudo apt-get update
         sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic
 
-    - name: Get changed LaTeX file
-      id: latex-file
-      run: |
-        # Get the list of changed .tex files in the texFiles directory
-        FILES=$(git diff --name-only HEAD^ -- texFiles/*.tex)
-        echo "Changed LaTeX file(s): $FILES"
-        
-        # Check if there's exactly one LaTeX file changed
-        if [ $(echo "$FILES" | wc -l) -ne 1 ]; then
-          echo "Error: There should be exactly one LaTeX file changed."
-          exit 1
-        fi
+    - name: Run Python script to build LaTeX
+      run: python build_latex.py
 
-        # Get the filename without extension and the directory
-        FILENAME=$(basename $FILES .tex)
-        DIRNAME=$(dirname $FILES)
-        
-        # Set the file name and directory as output variables
-        echo "::set-output name=filename::$FILENAME"
-        echo "::set-output name=dirname::$DIRNAME"
-
-    - name: Build LaTeX document with xelatex
-      run: |
-        # Use the filename and directory from the previous step
-        cd ${{ steps.latex-file.outputs.dirname }}
-        xelatex ${{ steps.latex-file.outputs.filename }}.tex
-
-    - name: Move PDF to output directory
-      run: |
-        mkdir -p pdfFiles
-        mv ${{ steps.latex-file.outputs.dirname }}/${{ steps.latex-file.outputs.filename }}.pdf pdfFiles/
-
-    - name: Commit and push PDF
-      env:
-         GH_PAT: ${{ secrets.GH_PAT }}
-      run: |
-            git config --global user.name "github-actions[bot]"
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git add pdfFiles/${{ steps.latex-file.outputs.filename }}.pdf
-            git commit -m "Add generated PDF for ${{ steps.latex-file.outputs.filename }}.tex"
-            git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git HEAD:main
+    - name: Commit and push changes
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
+        force: true  # Optional: use force if necessary
