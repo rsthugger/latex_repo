@@ -1,12 +1,14 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{fontspec}
 
 \title{Reproducibility, Versioning, Performance}
 \author{Advaith C A \\MTech, PRSD}
 \date{\today}
 
 \begin{document}
+    \setmainfont{Arial}
     \maketitle
     \section*{Questions}
     \begin{enumerate}
@@ -31,6 +33,27 @@
     \begin{enumerate}
         \item \href{https://github.com/advaithca/advaithca.github.io/tree/master}{Github repo} with commit history.
         \item \href{https://github.com/advaithca/latex_repo}{Github Repo} that keeps track of my latex files, and builds them when I push changes. It uses GitHub actions.
-        \item 
+        \item Solutions (Providing only the commands as I don't know how to share it another way.)
+        \begin{itemize}
+            \item Introduction Sequence Answers
+            \begin{enumerate}
+                \item \verb|git commit| \\ \verb|git commit|
+                \item \verb|git checkout -b bugFix|
+                \item \verb|git checkout -b bugFix| \\ \verb|git commit| \\ \verb|git checkout main| \\ \verb|git commit| \\ \verb|git merge|
+                \item \verb|git checkout -b bugFix| \\ \verb|git commit| \\ \verb|git checkout main| \\ \verb|git commit| \\ \verb|git checkout bugFix| \\ \verb|git rebase main|
+            \end{enumerate}
+            \item Ramping Up
+            \begin{enumerate}
+                \item \verb|git checkout C4|
+                \item \verb|git checkout bugFix^|
+                \item \verb|git checkout HEAD^| \\ \verb|git branch -f bugFix HEAD^| \\ \verb|git branch -f main C6|
+            \end{enumerate}
+            \item Moving Work Around
+            \begin{enumerate}
+                \item \verb|git reset HEAD^| \\ \verb|git checkout pushed| \\ \verb|git revert HEAD|
+                \item \verb|git cherry-pick C3 C4 C7|
+                \item \verb|git rebase -i overHere|
+            \end{enumerate}
+        \end{itemize}
     \end{enumerate}
 \end{document}
