@@ -38,9 +38,11 @@ jobs:
     
     - name: Commit changes
       run: |
+        git config user.name "$(git log -n 1 --pretty=format:%an)"
+        git config user.email "$(git log -n 1 --pretty=format:%ae)"
         git add pdfFiles/*
         git commit -m "Add PDF files"
-        
+
     - name: push changes
       uses: ad-m/github-push-action@master
       with:
