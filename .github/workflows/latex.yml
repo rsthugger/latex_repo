@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'texFiles/**/*.tex'
+      - 'texFiles/*.tex'
 
 jobs:
   build:

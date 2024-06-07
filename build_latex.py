@@ -4,7 +4,7 @@ import shutil
 import sys
 
 def get_changed_latex_file():
-    result = subprocess.run(['git', 'diff', '--name-only', 'HEAD^', 'HEAD', '--', 'texFiles/**/*.tex'], stdout=subprocess.PIPE, text=True)
+    result = subprocess.run(['git', 'diff', '--name-only', 'HEAD^', '--', 'texFiles/*.tex'], stdout=subprocess.PIPE, text=True)
     files = result.stdout.strip().split('\n')
     if len(files) != 1:
         print("Error: There should be exactly one LaTeX file changed.")

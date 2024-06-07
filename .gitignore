@@ -1,0 +1,8 @@
+texFiles/*.log
+texFiles/*.aux
+texFiles/*.out
+texFiles/*.xdv
+texFiles/*.gz
+texFiles/*.fdb_latexmk
+texFiles/*.fls
+texFiles/*.pdf
