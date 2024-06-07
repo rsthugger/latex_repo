@@ -26,7 +26,7 @@ def build_latex(filename):
 def move_pdf(pdf_path, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    shutil.move(pdf_path, output_dir)
+    shutil.move(pdf_path, os.path.join(output_dir, os.path.basename(pdf_path)))
 
 if __name__ == "__main__":
     tex_file = get_changed_latex_file()
