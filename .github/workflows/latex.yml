@@ -29,10 +29,17 @@ jobs:
 
     - name: Run Python script to build LaTeX
       run: python build_latex.py
+    
+    - name: List pdfFiles directory contents
+      run: ls -la pdfFiles
+
+    - name: List root directory contents
+      run: ls -la
 
     - name: Commit and push changes
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
-        force: true  # Optional: use force if necessary
+        force: true
+        directory: pdfFiles
