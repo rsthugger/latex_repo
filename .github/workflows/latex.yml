@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Fetch all history for all branches and tags
 
@@ -35,9 +35,14 @@ jobs:
 
     - name: List root directory contents
       run: ls -la
-
-    - name: Commit and push changes
-      uses: ad-m/github-push-action@v0.6.0
+    
+    - name: Commit changes
+      run: |
+        git add pdfFiles/*
+        git commit -m "Add PDF files"
+        
+    - name: push changes
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
