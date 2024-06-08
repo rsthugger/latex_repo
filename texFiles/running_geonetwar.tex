@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -15,7 +16,8 @@
 \begin{document}
     \maketitle
     \section*{Introduction}
-        \hspace{1.5em}This article is written with the intention of it acting as a way to reproduce the results I achieved in getting Geonetwork and Geoserver running on my PC (A Windows device) using their web archive (\textit{WAR}) files on a tomcat server. I will provide a brief on the steps involved and the versions of the involved software, and the hardware I have used to get it all up and running.
+        \hspace{1.5em}This article is written with the intention of it acting as a way to reproduce the results I achieved in getting Geonetwork and Geoserver running on my PC (A Windows device) using their web archive (\textit{WAR}) files on a tomcat server. I will provide a brief on the steps involved and the versions of the involved software, and the hardware I have used to get it all up and running. \par
+        \hspace{1.5em}This will also contain information about setting up the WPS in geoserver so that the operations can be used. Some information on the creation of custom processes will also be provided.
     \section*{Hardware}
         \hspace{1.5em}The hardware specifications of my PC:
         \begin{itemize}
@@ -33,7 +35,7 @@
         \item Geoserver 2.22.5 (Supports Java 8 SDK)
         \item Elasticsearch 7.17.15 (Supported by GeoNetwork 4.2.6)
     \end{itemize}
-        \hspace{1.5em}The above versions were chosen after consulting the \href{https://docs.geonetwork-opensource.org/4.2/install-guide/}{documentation} of GeoNetwork.
+        \hspace{1.5em}The above versions were chosen after consulting the \href{https://docs.geonetwork-opensource.org\-/4.2/install-guide/}{documentation} of GeoNetwork.
 
     \section*{Steps}
         \subsection*{Downloading the files and their placements}
@@ -57,5 +59,33 @@
                 \item If the search bar does not work in GeoNetwork, Edit the \emph{elasticsearch.yml} file the config directory of ElasticSearch, disable the security. (Usually the first uncommented line, make it false instead of true).
                 \item If there are too many errors, just use WSL or spin up an Ubuntu virtual machine in Oracle VirtualBox.
             \end{itemize}
-
+    \section*{WPS}
+    \hspace{1.5em}I have opted to use GeoServer WPS as it integrates well with the GeoNetwork ecosystem, even though there is a huge learning curve to writing geoprocesses in Java.
+        \subsection*{Setting up the geoserver WPS Plugin}
+            \begin{enumerate}
+                \item Download the \href{https://sourceforge.net/projects/geoserver/files/GeoServer/2.22.5/extensions/geoserver-2.22.5-wps-plugin.zip}{wps plugin} for geoserver 2.22.5.
+                \item Extract the contents of this zip file to the \emph{WEB-INF\/lib} directory within the \emph{geoserver} directory that got created in the \emph{webapps} directory of the Apache server.
+                \item Restart the Apache server using the command \verb|shutdown.bat| in the bin folder of the server directory.
+                \item The WPS plugin will showup in the services section of the geoserver instance. 
+            \end{enumerate}
+        \subsection*{Getting the WPS in GeoNetwork}
+        \hspace{1.5em}Copy the localhost address for the geoserver instance (http://localhost:8080/\-geoserver/ows, remove hyphens). Paste this into the search bar in the use WPS part in the Map. This will list out all the available processes.
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=\textwidth]{../images/Map.jpg}
+            \caption{Click on the Map link to open the interactive Map.}
+            \label{fig:fig-1}
+        \end{figure}
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=\textwidth]{../images/Use WPS Process.jpg}
+            \caption{Click on the Use WPS Process link}
+            \label{fig:fig-2}
+        \end{figure}
+        \begin{figure}[h!]
+            \centering
+            \includegraphics[width=\textwidth]{../images/Adding URL.jpg}
+            \caption{Add URL and choose a process.}
+            \label{fig:fig-3}
+        \end{figure}
 \end{document}
