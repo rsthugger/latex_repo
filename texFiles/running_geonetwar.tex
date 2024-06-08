@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\title{Running it all on Tomcat : \\ Geonetwork \& Geoserver}
+\author{Advaith C A}
+
+\begin{document}
+    \maketitle
+    \section*{Introduction}
+        \hspace{1.5em}This article is written with the intention of it acting as a way to reproduce the results I achieved in getting Geonetwork and Geoserver running on my PC (A Windows device) using their web archive (\textit{WAR}) files on a tomcat server. I will provide a brief on the steps involved and the versions of the involved software, and the hardware I have used to get it all up and running.
+    \section*{Hardware}
+        \hspace{1.5em}The hardware specifications of my PC:
+        \begin{itemize}
+            \item AMD Ryzen 7 5800H with Radeon Graphics 3.20 GHz
+            \item A dedicated RTX 3060 GPU
+            \item 16 GB RAM
+            \item 1 TB SSD (with roughly 260 GB Free space)
+            \item Windows 11 v23H2
+        \end{itemize}
+    \section*{Versions of softwares used}
+    \begin{itemize}
+        \item Java 8
+        \item Tomcat 9.0.89 (Supports running GeoNetwork 4.2.6)
+        \item GeoNetwork 4.2.6 (Stable version)
+        \item Geoserver 2.22.5 (Supports Java 8 SDK)
+        \item Elasticsearch 7.17.15 (Supported by GeoNetwork 4.2.6)
+    \end{itemize}
+        \hspace{1.5em}The above versions were chosen after consulting the \href{https://docs.geonetwork-opensource.org/4.2/install-guide/}{documentation} of GeoNetwork.
+
+    \section*{Steps}
+        \subsection*{Downloading the files and their placements}
+            \begin{enumerate}
+                \item Download \href{https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html}{Java 8} and install it. Make sure that \textit{JAVA\_HOME} has been added to the Environment as a variable pointing to the installed JDK.
+                \item Download the \href{https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.zip}{zip file} for Tomcat 9.0.89. Extract it to some location in your PC.
+                \item Download the \href{https://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v4.2.6/geonetwork.war/download}{GeoNetwork.war} file for version 4.2.6. Add this file to the \emph{webapps} folder in the extracted Apache folder.
+                \item Download the ElasticSearch \href{https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.15-windows-x86_64.zip}{zip file}. Extract it somewhere in your PC, preferrably somewhere near your previously extracted Apache folder to make navigation easier.
+                \item Download GeoServer 2.22.5 \href{https://sourceforge.net/projects/geoserver/files/GeoServer/2.22.5/geoserver-2.22.5-war.zip}{WAR file}. It will be a zip file, extract and add the WAR file to webapps folder in the Apache directory.    
+            \end{enumerate}
+        \subsection*{Running the server}
+            \begin{enumerate}
+                \item Open a CMD or Terminal window in the \emph{bin} directory of Apache directory.
+                \item Run the command \verb|startup.bat|
+                \item Open another CMD or Terminal window in the \emph{bin} directory of the ElasticSearch directory.
+                \item Run the command \verb|elasticsearch.bat|
+            \end{enumerate}
+        \subsection*{Troubleshooting}
+            \begin{itemize}
+                \item If after doing the above steps, nothing happens, please ensure that the versions are the same as that which I have used.
+                \item If the search bar does not work in GeoNetwork, Edit the \emph{elasticsearch.yml} file the config directory of ElasticSearch, disable the security. (Usually the first uncommented line, make it false instead of true).
+                \item If there are too many errors, just use WSL or spin up an Ubuntu virtual machine in Oracle VirtualBox.
+            \end{itemize}
+
+\end{document}
