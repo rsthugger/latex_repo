@@ -22,10 +22,10 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install TeX Live
+    - name: Install TeX Live and required packages
       run: |
         sudo apt-get update
-        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic texlive-bibtex-extra
+        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic texlive-bibtex-extra texlive-biblatex
 
     - name: Run Python script to build LaTeX
       run: python build_latex.py
@@ -43,7 +43,7 @@ jobs:
         git add pdfFiles/*
         git commit -m "Added $(git log -1 --name-only)"
 
-    - name: push changes
+    - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

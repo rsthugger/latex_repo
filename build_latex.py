@@ -17,10 +17,27 @@ def build_latex(filename):
     name, _ = os.path.splitext(basename)
     
     os.chdir(dirname)
-    result = subprocess.run(['xelatex', name + '.tex'], stdout=subprocess.PIPE, text=True)
-    print(result.stdout)
+    try:
+        # Run xelatex, biber, and xelatex twice to ensure proper compilation with bibliography
+        for _ in range(2):
+            result = subprocess.run(['xelatex', name + '.tex'], stdout=subprocess.PIPE, text=True)
+            print(result.stdout)
+            if result.returncode != 0:
+                raise subprocess.CalledProcessError(result.returncode, result.args)
+
+        result = subprocess.run(['biber', name], stdout=subprocess.PIPE, text=True)
+        print(result.stdout)
+        if result.returncode != 0:
+            raise subprocess.CalledProcessError(result.returncode, result.args)
+
+        for _ in range(2):
+            result = subprocess.run(['xelatex', name + '.tex'], stdout=subprocess.PIPE, text=True)
+            print(result.stdout)
+            if result.returncode != 0:
+                raise subprocess.CalledProcessError(result.returncode, result.args)
+    finally:
+        os.chdir('..')
     
-    os.chdir('..')
     return os.path.join(dirname, name + '.pdf')
 
 def move_pdf(pdf_path, output_dir):
