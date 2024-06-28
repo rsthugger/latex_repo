@@ -25,7 +25,7 @@ jobs:
     - name: Install TeX Live and required packages
       run: |
         sudo apt-get update
-        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic texlive-bibtex-extra
+        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic texlive-bibtex-extra biber
 
     - name: Run Python script to build LaTeX
       run: python build_latex.py
