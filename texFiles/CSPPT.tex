@@ -5,9 +5,9 @@
 \usepackage{booktabs}
 \usepackage[english]{babel}
 \usepackage[backend=biber,style=numeric, citestyle=ieee]{biblatex}
-\addbibresource{./main.bib}
-
-\title[Image Fusion using GAN]{Fusion of Multi-spectral and Hyper-spectral Data for classification}
+\addbibresource{main.bib}
+\usepackage{longtable}
+\title[Image Fusion using GAN]{Fusion of Multi-spectral and Hyper-spectral Data for classification.}
 \author[Advaith C A]{Advaith C A,\\MTech, PRSD.\\Guide: Mr Vinay Kumar}
 \date{\today}
 
@@ -26,10 +26,10 @@
 \section{Introduction}
 \begin{frame}{Introduction}
     \begin{itemize}
-        \item \textbf{Fusion in Remote Sensing} - Improve the spectral resolution without degradation in spatial resolution.
+        \item \textbf{Fusion in Remote Sensing} - Improve the spectral resolution without loss in spatial resolution.
         \item \textbf{Conventional techniques for Fusion} include IHS image fusion, Brovey transform image fusion, Principal Component Analysis image fusion, Wavelet image fusion etc.
-        \item \textbf{Generative Adversarial Network} is a type of Neural Network that has two components - a Generator and a Discriminator.
-        \item GAN can be used in RS fusion. GAN has been used for Neural Style transfer in which the style data of one image is transferred to another.
+        \item \textbf{Generative Adversarial Network} is a kind of Neural Network that has two components - a Generator and Discriminator.
+        \item GAN can be used in RS fusion. GAN has been used for Neural Style Transfer in which the style data of one image is transferred to another.
         \item GAN models opposing relationships, such relationships are present widely in remote sensing.
     \end{itemize}
 \end{frame}
@@ -61,7 +61,7 @@
 \begin{frame}{Generative Adversarial Networks Contd..}
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{../images/GAN.png}
+        \includegraphics[width=0.7\textwidth]{GAN.png}
         \caption{How the GAN Works}
         \label{fig:fig-1}
     \end{figure}
@@ -87,7 +87,7 @@
 \begin{frame}{Data}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{../images/map_s2.png}
+        \includegraphics[width=0.75\textwidth]{map_s2.png}
         \caption{The sentinel 2 image of Dehradun area}
         \label{fig:fig-2}
     \end{figure}
@@ -95,7 +95,7 @@
 \begin{frame}{Data}
     \begin{figure}
         \centering
-        \includegraphics[width=0.5\linewidth]{../images/hyper.png}
+        \includegraphics[width=0.5\linewidth]{hyper.png}
         \caption{Screenshot of hyperspectral data of the same area, visualized as hypercube in ENVI class 5.0}
         \label{fig:fig-3}
     \end{figure}
@@ -119,29 +119,28 @@
         \label{table:tab-1}
     \end{table}
 \end{frame}
-\begin{frame}{More Comparison}
-\begin{table}[ht]
-    \centering
-    \begin{tabular}{>{\raggedright\arraybackslash}p{4cm} >{\raggedright\arraybackslash}p{5.5cm} >{\raggedright\arraybackslash}p{5.5cm}}
-        \toprule
-        \textbf{Aspect} & \textbf{Traditional Algorithms} & \textbf{Deep Learning Algorithms} \\
-        \midrule
-        \textbf{Feature Extraction} & Predefined mathematical transformations (e.g., wavelet coefficients, PCA components) & Learned automatically from data during training \\
-        \midrule
-        \textbf{Adaptability} & Manual tuning of parameters, less adaptable to different types of images and conditions & Generalize better across different datasets and conditions \\
-        \midrule
-        \textbf{Performance} & Faster to compute, simpler operations & Superior visual quality and information preservation, higher computational resources \\
-        \midrule
-        \textbf{Complexity} & Simpler and more interpretable, easier to implement and understand & More complex, involving numerous layers and parameters, considered as black-box models \\
-        \midrule
-        \textbf{Data Requirements} & Can work with smaller datasets, no extensive training data needed & Require large datasets for training to achieve good performance \\
-        \midrule
-        \textbf{Application Specificity} & Often tailored to specific types of images or specific fusion tasks & Flexible, can be trained for various fusion tasks by adjusting training data and network architecture \\
-        \bottomrule
-    \end{tabular}
-    \caption{Comparison of Traditional and Deep Learning Algorithms for Image Fusion in Remote Sensing}
-    \label{tab:fusion_comparison}
-\end{table}
+\begin{frame}[allowframebreaks]{More comparison}
+    \begin{table}[ht]
+        \centering
+        \begin{longtable}{p{2cm}  p{4cm} p{4cm}}
+            \toprule
+            \textbf{Aspect} & \textbf{Traditional Algorithms} & \textbf{Deep Learning Algorithms} \\
+            \midrule
+            \textbf{Feature Extraction} & Predefined mathematical transformations (e.g., wavelet coefficients, PCA components) & Learned automatically from data during training \\
+            \midrule
+            \textbf{Adaptability} & Manual tuning of parameters, less adaptable to different types of images and conditions & Generalize better across different datasets and conditions \\
+            \midrule
+            \textbf{Performance} & Faster to compute, simpler operations & Superior visual quality and information preservation, higher computational resources \\
+            \midrule
+            \textbf{Complexity} & Simpler and more interpretable, easier to implement and understand & More complex, involving numerous layers and parameters, considered as black-box models \\
+            \midrule
+            \textbf{Data Requirements} & Can work with smaller datasets, no extensive training data needed & Require large datasets for training to achieve good performance \\
+            \midrule
+            \textbf{Application Specificity} & Often tailored to specific types of images or specific fusion tasks & Flexible, can be trained for various fusion tasks by adjusting training data and network architecture \\
+            \bottomrule
+        \end{longtable}
+        \label{tab:fusion_comparison}
+    \end{table}
 \end{frame}
 \section{References}
 \begin{frame}[allowframebreaks]{References}
