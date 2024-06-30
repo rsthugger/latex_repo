@@ -119,6 +119,30 @@
         \label{table:tab-1}
     \end{table}
 \end{frame}
+\begin{frame}{More Comparison}
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{>{\raggedright\arraybackslash}p{4cm} >{\raggedright\arraybackslash}p{5.5cm} >{\raggedright\arraybackslash}p{5.5cm}}
+        \toprule
+        \textbf{Aspect} & \textbf{Traditional Algorithms} & \textbf{Deep Learning Algorithms} \\
+        \midrule
+        \textbf{Feature Extraction} & Predefined mathematical transformations (e.g., wavelet coefficients, PCA components) & Learned automatically from data during training \\
+        \midrule
+        \textbf{Adaptability} & Manual tuning of parameters, less adaptable to different types of images and conditions & Generalize better across different datasets and conditions \\
+        \midrule
+        \textbf{Performance} & Faster to compute, simpler operations & Superior visual quality and information preservation, higher computational resources \\
+        \midrule
+        \textbf{Complexity} & Simpler and more interpretable, easier to implement and understand & More complex, involving numerous layers and parameters, considered as black-box models \\
+        \midrule
+        \textbf{Data Requirements} & Can work with smaller datasets, no extensive training data needed & Require large datasets for training to achieve good performance \\
+        \midrule
+        \textbf{Application Specificity} & Often tailored to specific types of images or specific fusion tasks & Flexible, can be trained for various fusion tasks by adjusting training data and network architecture \\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparison of Traditional and Deep Learning Algorithms for Image Fusion in Remote Sensing}
+    \label{tab:fusion_comparison}
+\end{table}
+\end{frame}
 \section{References}
 \begin{frame}[allowframebreaks]{References}
         \printbibliography
