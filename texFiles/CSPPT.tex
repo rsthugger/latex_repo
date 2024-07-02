@@ -119,28 +119,46 @@
         \label{table:tab-1}
     \end{table}
 \end{frame}
-\begin{frame}[allowframebreaks]{More comparison}
-    \begin{table}[ht]
+\begin{frame}{More comparison}
+    \begin{table}[h!]
         \centering
-        \begin{longtable}{p{2cm}  p{4cm} p{4cm}}
+        \scriptsize % Reduce font size
+        \begin{longtable}{p{2cm} p{4cm} p{4cm}}
             \toprule
             \textbf{Aspect} & \textbf{Traditional Algorithms} & \textbf{Deep Learning Algorithms} \\
             \midrule
-            \textbf{Feature Extraction} & Predefined mathematical transformations (e.g., wavelet coefficients, PCA components) & Learned automatically from data during training \\
+            \textbf{Feature Extraction} & Predefined transformations (e.g., wavelet coefficients, PCA) & Learned automatically from data during training \\
             \midrule
-            \textbf{Adaptability} & Manual tuning of parameters, less adaptable to different types of images and conditions & Generalize better across different datasets and conditions \\
+            \textbf{Adaptability} & Manual tuning, less adaptable to different conditions & Generalize better across datasets and conditions \\
             \midrule
-            \textbf{Performance} & Faster to compute, simpler operations & Superior visual quality and information preservation, higher computational resources \\
+            \textbf{Performance} & Faster, simpler operations & Superior visual quality, higher computational resources \\
             \midrule
-            \textbf{Complexity} & Simpler and more interpretable, easier to implement and understand & More complex, involving numerous layers and parameters, considered as black-box models \\
+            \textbf{Complexity} & Simpler, more interpretable, easier to implement & More complex, involving numerous layers and parameters, considered as black-box models \\
             \midrule
-            \textbf{Data Requirements} & Can work with smaller datasets, no extensive training data needed & Require large datasets for training to achieve good performance \\
+            \textbf{Data Requirements} & Work with smaller datasets, no extensive training data needed & Require large datasets for training to achieve good performance \\
             \midrule
-            \textbf{Application Specificity} & Often tailored to specific types of images or specific fusion tasks & Flexible, can be trained for various fusion tasks by adjusting training data and network architecture \\
+            \textbf{Application Specificity} & Often tailored to specific images or fusion tasks & Flexible, trainable for various tasks by adjusting data and architecture \\
             \bottomrule
         \end{longtable}
-        \label{tab:fusion_comparison}
     \end{table}
+\end{frame}
+\section{Unmixing Based GAN}
+\begin{frame}[allowframebreaks]{Unmixing Based GAN}
+    \begin{itemize}
+        \item Su et al. \cite{Su2023} refers to a Generative Adversarial Network that makes use of Spectral Unmixing and degradation for performing Image fusion.
+        \item They formulate the problem as estimation of a high resolution hyperspectral image (\textit{HR-HSI}) given a high resolution multispectral image (\textit{HR-MSI}) and low resolution hyperspectral image (\textit{LR-HSI}).
+        \item The required HR-HSI is a spectrally degraded version of HR-MSI, and a spatially degraded version of LR-HSI.
+        \item Therefore, the problem becomes estimating the degradation parameters from the inputs, along with the Abundance values and Endmembers.
+        \item A GAN that has one Generator and two discriminators is designed.
+        \item The generator makes use of two Autoencoder networks (AENet1 and AENet2).
+        \item AENet1 learns the identity function for the LR-HSI, it extracts Endmember matrix and the Abundance values using a non-linear mapping function from LR-HSI. The decoder reconstructs the output of the identity function from the generated Abundance values.
+        \item AENet2 learns the HR-MSI identity function, the encoder has the same structure as AENet2. It transforms HR-MSI to Abundance values. It's decoder has two parts:
+        \begin{enumerate}
+            \item A Convolutional Layer which contains endmember matrix E shareed by AENet1
+            \item A spectral degradation module which adaptively learns the Spectral Response Function.
+        \end{enumerate}
+        \item The convolutional layer generates the desired HR-HSI.
+    \end{itemize}
 \end{frame}
 \section{References}
 \begin{frame}[allowframebreaks]{References}
